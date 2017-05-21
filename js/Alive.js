@@ -202,7 +202,8 @@
 		 *	div所移动的div		  *
 		 *	top所移动的marginTop值*
 		***************************/
-		function animation(div,top){
+		function animation(div,top)
+		{
 			$(div).animate({marginTop:top + "px"},"slow","swing",function(){});	
 		}
 
