@@ -37,17 +37,17 @@
 		var leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
 		seconds=Math.round(leave3/1000);
 
-		s = zzz(s2,-Math.floor(seconds%10));
-		ss = zzz(s1,-Math.floor(seconds/10));
-		m = zzz(m2,-Math.floor(minutes%10));
-		mm = zzz(m1,-Math.floor(minutes/10));
-		h = zzz(h2,-Math.floor(hours%10));
-		hh = zzz(h1,-Math.floor(hours/10));
-		d = zzz(d5,-Math.floor(days%10));
-		dd = zzz(d4,-Math.floor(days%100/10));
-		ddd = zzz(d3,-Math.floor(days%1000/100));
-		dddd = zzz(d2,-Math.floor(days%10000/1000));
-		ddddd = zzz(d1,-Math.floor(days/10000));
+		s = zzz('.s2',-Math.floor(seconds%10));
+		ss = zzz(".s1",-Math.floor(seconds/10));
+		m = zzz(".m2",-Math.floor(minutes%10));
+		mm = zzz(".m1",-Math.floor(minutes/10));
+		h = zzz(".h2",-Math.floor(hours%10));
+		hh = zzz(".h1",-Math.floor(hours/10));
+		d = zzz(".d5",-Math.floor(days%10));
+		dd = zzz(".d4",-Math.floor(days%100/10));
+		ddd = zzz('.d3',-Math.floor(days%1000/100));
+		dddd = zzz(".d2",-Math.floor(days%10000/1000));
+		ddddd = zzz(".d1",-Math.floor(days/10000));
 		console.log(days + "天",hours + "时",minutes + "分",seconds + "秒");
 		for (var i = 0; i < 10; i++)
 		{
@@ -109,7 +109,7 @@
 			if (m < -360) 
 			{
 				m = 0;
-				m2.style.marginTop = m + "px";
+				animation(".m2",m);
 				mm -= 40;
 				if (mm > -240) {
 					animation(".m1",mm);
@@ -118,7 +118,7 @@
 			if (mm < -200) 
 			{
 				mm = 0;
-				m1.style.marginTop = mm + "px";
+				animation(".m1",mm);
 				h -= 40;
 				if (h > -400) {
 					animation(".h1",h);
@@ -127,17 +127,17 @@
 			if (h < -360) 
 			{
 				h = 0;
-				h2.style.marginTop = h + "px";
+				animation(".h1",h);
 				hh -= 40;
 				
 				if (hh > -240) {
-					animation(".h2",ss);
+					animation(".h2",hh);
 				}
 			}
 			if (hh < -200) 
 			{
 				hh = 0;
-				h1.style.marginTop = hh + "px";
+				animation(".h1",hh);
 				d -= 40;
 				if (d > -400) {
 					animation(".d5",d);
@@ -146,7 +146,7 @@
 			if (d < -360) 
 			{
 				d = 0;
-				animation("d5",d);
+				animation(".d5",d);
 				dd -= 40;
 				if (dd > -400) {
 					animation(".d4",dd);
@@ -155,7 +155,7 @@
 			if (dd < -360) 
 			{
 				dd = 0;
-				animation("d4",dd);
+				animation(".d4",dd);
 				ddd -= 40;
 				if (ddd > -400) {
 					animation(".d3",ddd);
@@ -164,7 +164,7 @@
 			if (ddd < -360) 
 			{
 				ddd = 0;
-				animation("d3",ddd);
+				animation(".d3",ddd);
 				dddd -= 40;
 				if (dddd > -400) {
 					animation(".d2",dddd);
@@ -173,7 +173,7 @@
 			if (dddd < -360) 
 			{
 				dddd = 0;
-				animation("d2",dddd);
+				animation(".d2",dddd);
 				ddddd -= 40;
 				if (ddddd > -400) {
 					animation(".d1",ddddd);
@@ -182,19 +182,19 @@
 			if (ddddd < -360) 
 			{
 				ddddd = 0;
-				animation("d1",ddddd);
+				animation(".d1",ddddd);
 			}
 		}
 
 		/***************************
 		 *	初始化活着的时间	  *
-		 *	a所初始化的div		  *
-		 *	b所初始化的marginTop值*
+		 *	div所初始化的div		  *
+		 *	top所初始化的marginTop值*
 		***************************/
-		function zzz(a,b)
+		function zzz(div,top)
 		{
-			a.style.marginTop = b * 40 + "px";
-			return b * 40;
+			$(div).animate({marginTop:top * 40 + "px"},"slow","swing",function(){});	
+			return top * 40;
 		}
 
 		/***************************
