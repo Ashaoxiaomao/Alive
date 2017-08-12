@@ -43,3 +43,21 @@
 			margin: auto;
 			width: 300px;
 		}
+		.morseShow
+		{
+			margin: 0 0 0 20px;
+			display: block;
+		}
+		.morse>input
+		{
+			margin: 0 0 0 20px;
+		}
+		.morse>p
+		{
+			margin: 0;	
+			margin: 0 0 0 20px;
+		}
+		.sagnal
+		{
+			margin: 0 0 0 5px;
+		}
