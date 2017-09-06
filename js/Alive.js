@@ -1,3 +1,4 @@
+var log = console.log.bind(console);
 var s = 0;
 var ss = 0;
 var m = 0;
@@ -56,7 +57,7 @@ function dateTime()
 	ddd = zzz('.d3',-Math.floor(days%1000/100));
 	dddd = zzz(".d2",-Math.floor(days%10000/1000));
 	ddddd = zzz(".d1",-Math.floor(days/10000));
-	// console.log(days + "天",hours + "时",minutes + "分",seconds + "秒");
+	// log(days + "天",hours + "时",minutes + "分",seconds + "秒");
 }
 for (var i = 0; i < 10; i++)
 {
@@ -217,8 +218,8 @@ function zzz(div,top)
 // 	$(div).animate({marginTop:top + "px"},"slow","swing",function(){});	
 // }
 
-console.log("我是垃圾");
-console.log("({} + 1 == 1 + {}) == false");
+log("我是垃圾");
+log("({} + 1 == 1 + {}) == false");
 
 var isShow = true;
 var signals,content,changer,result;
@@ -274,148 +275,148 @@ window.onload = function()
 				return;	
 			}
 			var arr = content.value.split("/");
-			// console.log(arr);
+			// log(arr);
 			arr.forEach
 				(
 					function(value,index)
 					{
-						// console.log(value);
+						// log(value);
 						var array = value.split(" ");
 						array.forEach
 						(
 							function(val,ind)
 							{
-										// console.log(val);
+										// log(val);
 								switch(val)
 								{
 									case signals[0].value + signals[1].value :
 										array[ind] = "a";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[0].value + signals[0].value + signals[0].value :
 										array[ind] = "b";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[0].value + signals[1].value + signals[0].value :
 										array[ind] = "c";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[0].value + signals[0].value :
 										array[ind] = "d";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value :
 										array[ind] = "e";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[0].value + signals[1].value + signals[0].value :
 										array[ind] = "f";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[1].value + signals[0].value :
 										array[ind] = "g";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[0].value + signals[0].value + signals[0].value :
 										array[ind] = "h";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[0].value :
 										array[ind] = "i";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[1].value + signals[1].value + signals[1].value :
 										array[ind] = "j";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[0].value + signals[1].value :
 										array[ind] = "k";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[1].value + signals[0].value + signals[0].value :
 										array[ind] = "l";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[1].value :
 										array[ind] = "m";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[0].value :
 										array[ind] = "n";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[1].value + signals[0].value + signals[0].value :
 										array[ind] = "z";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[1].value + signals[1].value :
 										array[ind] = "o";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[1].value + signals[1].value + signals[0].value :
 										array[ind] = "p";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[1].value + signals[0].value + signals[1].value :
 										array[ind] = "q";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[0].value + signals[0].value :
 										array[ind] = "s";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[0].value + signals[1].value :
 										array[ind] = "r";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value :
 										array[ind] = "t";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[0].value + signals[0].value + signals[1].value :
 										array[ind] = "v";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[0].value + signals[1].value :
 										array[ind] = "u";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[0].value + signals[0].value + signals[1].value :
 										array[ind] = "x";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[0].value + signals[1].value + signals[1].value :
 										array[ind] = "w";
-										// console.log(val);
+										// log(val);
 										break;
 										
 									case signals[1].value + signals[0].value + signals[1].value + signals[1].value :
 										array[ind] = "y";
-										// console.log(val);
+										// log(val);
 										break;
 								}
 							}	
@@ -424,7 +425,7 @@ window.onload = function()
 					}
 				)
 
-			// console.log(arr.join(" "));
+			// log(arr.join(" "));
 			result.value = arr.join(" ");
 
 		} 
