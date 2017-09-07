@@ -1,31 +1,23 @@
 var log = console.log.bind(console);
-var s = 0;
-var ss = 0;
-var m = 0;
-var mm = 0;
-var h = 0;
-var hh = 0;
-var d = 0;
-var dd = 0;
-var ddd = 0;
-var dddd = 0;
-var ddddd = 0;
-var d1 = document.querySelector(".d1");
-var d2 = document.querySelector(".d2");
-var d3 = document.querySelector(".d3");
-var d4 = document.querySelector(".d4");
-var d5 = document.querySelector(".d5");
-var h1 = document.querySelector(".h1");
-var h2 = document.querySelector(".h2");
-var m1 = document.querySelector(".m1");
-var m2 = document.querySelector(".m2");
-var s1 = document.querySelector(".s1");
-var s2 = document.querySelector(".s2");
+var e = document.querySelector.bind(document);
+var eAll = document.querySelectorAll.bind(document);
+
+var d1 = e(".d1");
+var d2 = e(".d2");
+var d3 = e(".d3");
+var d4 = e(".d4");
+var d5 = e(".d5");
+var h1 = e(".h1");
+var h2 = e(".h2");
+var m1 = e(".m1");
+var m2 = e(".m2");
+var s1 = e(".s1");
+var s2 = e(".s2");
 var days,hours,minutes,seconds;
 
 
-var morseShow = document.querySelector(".morseShow");
-var morse= document.querySelector(".morse");
+var morseShow = e(".morseShow");
+var morse= e(".morse");
 
 
 function dateTime()
@@ -46,17 +38,17 @@ function dateTime()
 	var leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
 	seconds=Math.floor(leave3/1000);
 
-	s = zzz('.s2',-Math.floor(seconds%10));
-	ss = zzz(".s1",-Math.floor(seconds/10));
-	m = zzz(".m2",-Math.floor(minutes%10));
-	mm = zzz(".m1",-Math.floor(minutes/10));
-	h = zzz(".h2",-Math.floor(hours%10));
-	hh = zzz(".h1",-Math.floor(hours/10));
-	d = zzz(".d5",-Math.floor(days%10));
-	dd = zzz(".d4",-Math.floor(days%100/10));
-	ddd = zzz('.d3',-Math.floor(days%1000/100));
-	dddd = zzz(".d2",-Math.floor(days%10000/1000));
-	ddddd = zzz(".d1",-Math.floor(days/10000));
+	zzz('.s2',-Math.floor(seconds%10));
+	zzz(".s1",-Math.floor(seconds/10));
+	zzz(".m2",-Math.floor(minutes%10));
+	zzz(".m1",-Math.floor(minutes/10));
+	zzz(".h2",-Math.floor(hours%10));
+	zzz(".h1",-Math.floor(hours/10));
+	zzz(".d5",-Math.floor(days%10));
+	zzz(".d4",-Math.floor(days%100/10));
+	zzz('.d3',-Math.floor(days%1000/100));
+	zzz(".d2",-Math.floor(days%10000/1000));
+	zzz(".d1",-Math.floor(days/10000));
 	// log(days + "天",hours + "时",minutes + "分",seconds + "秒");
 }
 for (var i = 0; i < 10; i++)
@@ -250,10 +242,10 @@ window.onload = function()
 	createInput("result","disabled",false);
 	createInput("changer","button",false);
 	morse.style.display = "none";
-	signals = document.querySelectorAll(".signal");
-	content = document.querySelector(".content");
-	result = document.querySelector(".result");
-	changer = document.querySelector(".changer");
+	signals = eAll(".signal");
+	content = e(".content");
+	result = e(".result");
+	changer = e(".changer");
 	changer.onclick = function()
 		{
 			var _result;
