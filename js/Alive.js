@@ -294,7 +294,6 @@ function GetMorseObj()
 		},
 		MToE: function(val,signals)
 		{
-			log("MToe");
 			while(val.indexOf(o.Elements.signals[0].value) >= 0 || val.indexOf(o.Elements.signals[1].value) >= 0)
 			{
 				val = val.replace(o.Elements.signals[0].value,".");
@@ -313,15 +312,15 @@ function GetMorseObj()
 			val = val.toLowerCase();
 			for(var i in o)
 			{
-				log("ETom",val);
 				if (i == val) 
 				{
-					while(o[i].indexOf(".") >= 0 || o[i].indexOf("-") >= 0)
+					val = o[i];
+					while(val.indexOf(".") >= 0 || val.indexOf("-") >= 0)
 					{
-						o[i] = o[i].replace(".",o.Elements.signals[0].value);
-						o[i] = o[i].replace("-",o.Elements.signals[1].value);
+						val = val.replace(".",o.Elements.signals[0].value);
+						val = val.replace("-",o.Elements.signals[1].value);
 					}
-					return o[i];
+					return val;
 				}
 			}
 		},
