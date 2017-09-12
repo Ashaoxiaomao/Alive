@@ -96,8 +96,7 @@ function zzz(div,top)
 }
 
 
-log("我是垃圾");
-log("({} + 1 == 1 + {}) == false");
+
 
 var isShow = true;
 var signals,content,changer,result;
@@ -252,11 +251,11 @@ function GetMorseObj()
 					var p = c("p");
 					if (parmenters.ClassName == "radio0") 
 					{
-						p.textContent = "字母转密码:";
+						p.textContent = "密码转字母:";
 					}
 					else
 					{
-						p.textContent = "密码转字母:";
+						p.textContent = "字母转密码:";
 					}
 					p.style.display = "inline";				
 					morse.appendChild(p);
@@ -315,7 +314,13 @@ function GetMorseObj()
 			{
 				if (i == val) 
 				{
-					return o[i];
+					val = o[i];
+					while(val.indexOf(".") >= 0 || val.indexOf("-") >= 0)
+					{
+						val = val.replace(".",o.Elements.signals[0].value);
+						val = val.replace("-",o.Elements.signals[1].value);
+					}
+					return val;
 				}
 			}
 		},
@@ -339,25 +344,58 @@ function GetMorseObj()
 				alert(_result);
 				return;	
 			}
-			var arr = morseObj.Elements.content.value.split("/");
+			if (o.Elements.radio1.checked)
+			{
+				var arr = o.Elements.content.value.split(" ");
+			}
+			else
+			{
+				var arr = o.Elements.content.value.split("/");
+			}
 			arr.forEach
 				(
 					function(value,index)
 					{
-						var array = value.split(" ");
+						if (o.Elements.radio1.checked)
+						{
+							var array = value.split("");
+						}
+						else
+						{
+							var array = value.split(" ");
+						}
 						array.forEach
 						(
 							function(val,ind)
 							{
 								if (o.Elements.radio1.checked)
-								array[ind] = o.EToM(val);
-								array[ind] = o.MToE(val);
+								{
+									array[ind] = o.EToM(val);
+								}
+								else
+								{
+									array[ind] = o.MToE(val);
+								}
 							}	
 						)
-						arr[index] = array.join("");
+						if (o.Elements.radio1.checked)
+						{
+							arr[index] = array.join(" ");
+						}
+						else
+						{
+							arr[index] = array.join("");
+						}
 					}
 				)
-			o.Elements.result.value = arr.join(" ");
+			if (o.Elements.radio1.checked)
+			{
+				o.Elements.result.value = arr.join("/");
+			}	
+			else
+			{
+				o.Elements.result.value = arr.join(" ");
+			}
 
 		},
 	}
