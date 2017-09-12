@@ -1,4 +1,5 @@
 var log = console.log.bind(console);
+var c = document.createElement.bind(document);
 var e = document.querySelector.bind(document);
 var eAll = document.querySelectorAll.bind(document);
 
@@ -14,7 +15,6 @@ var m2 = e(".m2");
 var s1 = e(".s1");
 var s2 = e(".s2");
 var days,hours,minutes,seconds;
-
 
 var morseShow = e(".morseShow");
 var morse= e(".morse");
@@ -51,6 +51,7 @@ function dateTime()
 	zzz(".d1",-Math.floor(days/10000));
 	// log(days + "天",hours + "时",minutes + "分",seconds + "秒");
 }
+
 for (var i = 0; i < 10; i++)
 {
 	if (i < 6)
@@ -73,121 +74,15 @@ var ival = setInterval(function(){
 	// pass();
 	dateTime();
 },1000);
-// for (var i = 1000000 - 1; i >= 0; i--) {
-// 	ival;
-// }
+
 function createDiv(i)
 {
-	var div = document.createElement("div");
+	var div = c("div");
 		div.className = "num";
 		div.textContent = i;
 		div.style.backgfloorColor="white";
 	return div;
 }
-// function pass()
-// {
-
-// 	s -= 40;
-// 	if (s > -400) {
-// 		animation(".s2",s);
-// 	}
-// 	if (s < -360)
-// 	{
-// 		s = 0;
-// 		animation(".s2",s);
-// 		ss -= 40;
-// 		if (ss > -240) {
-// 			animation(".s1",ss);
-// 		}	
-// 	}
-// 	if (ss < -200) 
-// 	{
-// 		ss = 0;
-// 		animation(".s1",ss);
-// 		m-= 40;
-// 		if (m > -400) {
-// 			animation(".m2",m);
-// 		}
-// 	}
-// 	if (m < -360) 
-// 	{
-// 		m = 0;
-// 		animation(".m2",m);
-// 		mm -= 40;
-// 		if (mm > -240) {
-// 			animation(".m1",mm);
-// 		}
-// 	}
-// 	if (mm < -200) 
-// 	{
-// 		mm = 0;
-// 		animation(".m1",mm);
-// 		h -= 40;
-// 		if (h > -400) {
-// 			animation(".h1",h);
-// 		}
-// 	}
-// 	if (h < -360 ||　(hh <= -40 && h <= -160)) 
-// 	{
-// 		h = 0;
-// 		animation(".h1",h);
-// 		hh -= 40;
-		
-// 		if (hh > -240) {
-// 			animation(".h2",hh);
-// 		}
-// 	}
-// 	if (hh < -80) 
-// 	{
-// 		hh = 0;
-// 		animation(".h1",hh);
-// 		d -= 40;
-// 		if (d > -400) {
-// 			animation(".d5",d);
-// 		}
-// 	}
-// 	if (d < -360) 
-// 	{
-// 		d = 0;
-// 		animation(".d5",d);
-// 		dd -= 40;
-// 		if (dd > -400) {
-// 			animation(".d4",dd);
-// 		}
-// 	}
-// 	if (dd < -360) 
-// 	{
-// 		dd = 0;
-// 		animation(".d4",dd);
-// 		ddd -= 40;
-// 		if (ddd > -400) {
-// 			animation(".d3",ddd);
-// 		}
-// 	}
-// 	if (ddd < -360) 
-// 	{
-// 		ddd = 0;
-// 		animation(".d3",ddd);
-// 		dddd -= 40;
-// 		if (dddd > -400) {
-// 			animation(".d2",dddd);
-// 		}
-// 	}
-// 	if (dddd < -360) 
-// 	{
-// 		dddd = 0;
-// 		animation(".d2",dddd);
-// 		ddddd -= 40;
-// 		if (ddddd > -400) {
-// 			animation(".d1",ddddd);
-// 		}
-// 	}
-// 	if (ddddd < -360) 
-// 	{
-// 		ddddd = 0;
-// 		animation(".d1",ddddd);
-// 	}
-// }
 
 /*****************************
  *	初始化活着的时间	    *
@@ -200,15 +95,6 @@ function zzz(div,top)
 	return top * 40;
 }
 
-/***************************
- *	平滑移动			  *
- *	div所移动的div		  *
- *	top所移动的marginTop值*
-***************************/
-// function animation(div,top)
-// {
-// 	$(div).animate({marginTop:top + "px"},"slow","swing",function(){});	
-// }
 
 log("我是垃圾");
 log("({} + 1 == 1 + {}) == false");
@@ -229,35 +115,222 @@ morseShow.onclick = function()
 		isShow = true;
 	}
 }
-
-window.onload = function()
+function GetMorseObj()
 {
-	createP("短信号:");
-	createInput("signal","Text",true);
-	createP("长信号:");
-	createInput("signal","Text",true);
-	createP("输入摩斯密码\'\/\'分割单词:");
-	createInput("content","Text",false);
-	createP("转换结果:");
-	createInput("result","disabled",false);
-	createInput("changer","button",false);
-	morse.style.display = "none";
-	signals = eAll(".signal");
-	content = e(".content");
-	result = e(".result");
-	changer = e(".changer");
-	changer.onclick = function()
+	o = {
+		a:".-",
+		b:"-...",
+		c:".-.-",
+		d:"-..",
+		e:".",
+		f:"..-.",
+		g:"--.",
+		h:"....",
+		i:"..",
+		j:".---",
+		k:"-.-",
+		l:".-..",
+		m:"--",
+		n:"-.",
+		o:"---",
+		p:".--.",
+		q:"--.-",
+		r:".-.",
+		s:"...",
+		t:"-",
+		u:"..-",
+		v:"...-",
+		w:".--",
+		x:"-..-",
+		y:"-.--",
+		z:"--..",
+		"1":".----",
+		"2":"..---",
+		"3":"...--",
+		"4":"....-",
+		"5":".....",
+		"6":"-....",
+		"7":"--...",
+		"8":"---..",
+		"9":"----.",
+		"0":"-----",
+		Parameters:[
+			{
+				EName:"input",
+				ClassName:"radio0",
+				Type:"radio",
+				IsOn:false,
+			},
+			{
+				EName:"input",
+				ClassName:"radio1",
+				Type:"radio",
+				IsOn:false,
+			},
+			{
+				EName:"p",
+				ClassName:"短信号:",
+			},
+			{
+				EName:"input",
+				ClassName:"signal",
+				Type:"Text",
+				IsOn:true,
+			},
+			{
+				EName:"p",
+				ClassName:"长信号:",
+			},
+			{
+				EName:"input",
+				ClassName:"signal",
+				Type:"Text",
+				IsOn:true,
+			},
+			{
+				EName:"p",
+				ClassName:"输入摩斯密码\'\/\'分割单词:",
+			},
+			{
+				EName:"input",
+				ClassName:"content",
+				Type:"Text",
+				IsOn:false,
+			},
+			{
+				EName:"p",
+				ClassName:"转换结果:",
+			},
+			{
+				EName:"input",
+				ClassName:"result",
+				Type:"disabled",
+				IsOn:false,
+			},
+			{
+				EName:"input",
+				ClassName:"changer",
+				Type:"button",
+				IsOn:false,
+			},
+		],
+		Elements:{},
+		getElements: function()
 		{
-			var _result;
-			if (!signals[0].value) 
+			o.Parameters.forEach(
+					function(v)
+					{
+						o.ElementCreate(v);
+					}
+				)
+			o.Elements = 
+				{
+					signals: eAll(".signal"),
+					content: e(".content"),
+					result: e(".result"),
+					changer: e(".changer"),
+					radio1: e(".radio1"),
+				}
+		},
+		ElementCreate:function(parmenters)
+		{
+			if (parmenters.EName == "input")
+			{				
+				var input = c("input");
+				input.className = parmenters.ClassName;
+				input.type = parmenters.Type;
+				if(parmenters.Type == "button")
+				{
+					input.value = "转换";
+				}
+				else if(parmenters.Type == "disabled")
+				{
+					input.disabled = "disabled";
+				}
+				else if (parmenters.Type == "radio") 
+				{
+					var p = c("p");
+					if (parmenters.ClassName == "radio0") 
+					{
+						p.textContent = "字母转密码:";
+					}
+					else
+					{
+						p.textContent = "密码转字母:";
+					}
+					p.style.display = "inline";				
+					morse.appendChild(p);
+					
+					input.name = "radio";
+				}
+				if(parmenters.IsOn)
+				{
+					input.style.width = "20px";
+					input.onkeyup = function()
+					{
+						if (this.value.length > 0)
+						{
+							this.value = this.value.substring(0,1);
+						}
+					}
+				}
+				morse.appendChild(input);
+				if (parmenters.ClassName == "radio1" ) 
+					{
+						morse.appendChild(c("br"));
+					}
+				return input;
+			}
+			if (parmenters.EName == "p") 
+			{
+				var p = c("p");
+				p.textContent = parmenters.ClassName;
+				if (parmenters.ClassName.indexOf("信号") != -1) 
+				{
+					p.style.display = "inline";
+
+				}
+				morse.appendChild(p);
+			}
+		},
+		MToE: function(val,signals)
+		{
+			while(val.indexOf(o.Elements.signals[0].value) >= 0 || val.indexOf(o.Elements.signals[1].value) >= 0)
+			{
+				val = val.replace(o.Elements.signals[0].value,".");
+				val = val.replace(o.Elements.signals[1].value,"-");
+			}
+			for(var i in o)
+			{
+				if (o[i] == val) 
+				{
+					return i;
+				}
+			}
+		},
+		EToM: function(val)
+		{
+			val = val.toLowerCase();
+			for(var i in o)
+			{
+				if (i == val) 
+				{
+					return o[i];
+				}
+			}
+		},
+		change: function()
+		{
+			var _result = "";
+			if (!morseObj.Elements.signals[0].value) 
 			{
 				_result ="亲~短信号不能为空哟!\n";
 			}
-			if (!signals[1].value)
+			if (!morseObj.Elements.signals[1].value)
 			{
 				_result +="亲~长信号不能为空哟!\n";
 			}
-			if (!content.value)
+			if (!morseObj.Elements.content.value)
 			{
 				_result +="你爸爸东西都没有!\n转个毛!!!";
 			}
@@ -266,200 +339,36 @@ window.onload = function()
 				alert(_result);
 				return;	
 			}
-			var arr = content.value.split("/");
-			// log(arr);
+			var arr = morseObj.Elements.content.value.split("/");
 			arr.forEach
 				(
 					function(value,index)
 					{
-						// log(value);
 						var array = value.split(" ");
 						array.forEach
 						(
 							function(val,ind)
 							{
-										// log(val);
-								switch(val)
-								{
-									case signals[0].value + signals[1].value :
-										array[ind] = "a";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[0].value + signals[0].value + signals[0].value :
-										array[ind] = "b";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[0].value + signals[1].value + signals[0].value :
-										array[ind] = "c";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[0].value + signals[0].value :
-										array[ind] = "d";
-										// log(val);
-										break;
-										
-									case signals[0].value :
-										array[ind] = "e";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[0].value + signals[1].value + signals[0].value :
-										array[ind] = "f";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[1].value + signals[0].value :
-										array[ind] = "g";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[0].value + signals[0].value + signals[0].value :
-										array[ind] = "h";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[0].value :
-										array[ind] = "i";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[1].value + signals[1].value + signals[1].value :
-										array[ind] = "j";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[0].value + signals[1].value :
-										array[ind] = "k";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[1].value + signals[0].value + signals[0].value :
-										array[ind] = "l";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[1].value :
-										array[ind] = "m";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[0].value :
-										array[ind] = "n";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[1].value + signals[0].value + signals[0].value :
-										array[ind] = "z";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[1].value + signals[1].value :
-										array[ind] = "o";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[1].value + signals[1].value + signals[0].value :
-										array[ind] = "p";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[1].value + signals[0].value + signals[1].value :
-										array[ind] = "q";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[0].value + signals[0].value :
-										array[ind] = "s";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[0].value + signals[1].value :
-										array[ind] = "r";
-										// log(val);
-										break;
-										
-									case signals[1].value :
-										array[ind] = "t";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[0].value + signals[0].value + signals[1].value :
-										array[ind] = "v";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[0].value + signals[1].value :
-										array[ind] = "u";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[0].value + signals[0].value + signals[1].value :
-										array[ind] = "x";
-										// log(val);
-										break;
-										
-									case signals[0].value + signals[1].value + signals[1].value :
-										array[ind] = "w";
-										// log(val);
-										break;
-										
-									case signals[1].value + signals[0].value + signals[1].value + signals[1].value :
-										array[ind] = "y";
-										// log(val);
-										break;
-								}
+								if (o.Elements.radio1.checked)
+								array[ind] = o.EToM(val);
+								array[ind] = o.MToE(val);
 							}	
 						)
 						arr[index] = array.join("");
 					}
 				)
+			o.Elements.result.value = arr.join(" ");
 
-			// log(arr.join(" "));
-			result.value = arr.join(" ");
-
-		} 
+		},
+	}
+	return o;
 }
-function createP(text)
+window.onload = function()
 {
-	var p = document.createElement("p");
-	p.textContent = text;
-	if (text.indexOf("信号") != -1) 
-	{
-		p.style.display = "inline";
-
-	}
-	morse.appendChild(p);
-
-}
-function createInput(classname,type,_length)
-{
-	var input = document.createElement("input");
-	input.className = classname;
-	input.type = type;
-	if(type == "button")
-	{
-		input.value = "转换";
-	}
-	else if(type == "disabled")
-	{
-		input.disabled = "disabled";
-	}
-	if(_length)
-	{
-		input.style.width = "20px";
-		input.onkeyup = function()
-		{
-			if (this.value.length > 0)
-			{
-				this.value = this.value.substring(0,1);
-			}
-		}
-	}
-	morse.appendChild(input);
-	return input;
+	morse.style.display = "none";
+	morseObj = GetMorseObj();
+	morseObj.getElements();
+	morseObj.Elements.changer.onclick = morseObj.change;
 }
 
 log(`
