@@ -96,8 +96,7 @@ function zzz(div,top)
 }
 
 
-log("我是垃圾");
-log("({} + 1 == 1 + {}) == false");
+
 
 var isShow = true;
 var signals,content,changer,result;
@@ -252,11 +251,11 @@ function GetMorseObj()
 					var p = c("p");
 					if (parmenters.ClassName == "radio0") 
 					{
-						p.textContent = "字母转密码:";
+						p.textContent = "密码转字母:";
 					}
 					else
 					{
-						p.textContent = "密码转字母:";
+						p.textContent = "字母转密码:";
 					}
 					p.style.display = "inline";				
 					morse.appendChild(p);
@@ -295,6 +294,7 @@ function GetMorseObj()
 		},
 		MToE: function(val,signals)
 		{
+			log("MToe");
 			while(val.indexOf(o.Elements.signals[0].value) >= 0 || val.indexOf(o.Elements.signals[1].value) >= 0)
 			{
 				val = val.replace(o.Elements.signals[0].value,".");
@@ -313,8 +313,14 @@ function GetMorseObj()
 			val = val.toLowerCase();
 			for(var i in o)
 			{
+				log("ETom",val);
 				if (i == val) 
 				{
+					while(o[i].indexOf(".") >= 0 || o[i].indexOf("-") >= 0)
+					{
+						o[i] = o[i].replace(".",o.Elements.signals[0].value);
+						o[i] = o[i].replace("-",o.Elements.signals[1].value);
+					}
 					return o[i];
 				}
 			}
@@ -339,11 +345,17 @@ function GetMorseObj()
 				alert(_result);
 				return;	
 			}
-			var arr = morseObj.Elements.content.value.split("/");
+			if (o.Elements.radio1.checked)
+			var arr = o.Elements.content.value.split(" ");
+			else
+			var arr = o.Elements.content.value.split("/");
 			arr.forEach
 				(
 					function(value,index)
 					{
+						if (o.Elements.radio1.checked)
+						var array = value.split("");
+						else
 						var array = value.split(" ");
 						array.forEach
 						(
@@ -351,12 +363,19 @@ function GetMorseObj()
 							{
 								if (o.Elements.radio1.checked)
 								array[ind] = o.EToM(val);
+								else
 								array[ind] = o.MToE(val);
 							}	
 						)
+						if (o.Elements.radio1.checked)
+						arr[index] = array.join(" ");
+						else
 						arr[index] = array.join("");
 					}
 				)
+			if (o.Elements.radio1.checked)
+			o.Elements.result.value = arr.join("/");
+			else
 			o.Elements.result.value = arr.join(" ");
 
 		},
