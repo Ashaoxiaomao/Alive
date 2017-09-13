@@ -16,8 +16,7 @@ var s1 = e(".s1");
 var s2 = e(".s2");
 var days,hours,minutes,seconds;
 
-var morseShow = e(".morseShow");
-var morse= e(".morse");
+
 
 
 function dateTime()
@@ -84,38 +83,26 @@ function createDiv(i)
 	return div;
 }
 
-/*****************************
+/****************************
  *	初始化活着的时间	    *
  *	div所初始化的div     	*
  *	top所初始化的marginTop值*
-*****************************/
+ ****************************/
 function zzz(div,top)
 {
 	$(div).animate({marginTop:top * 40 + "px"},"slow","swing",function(){});	
-	return top * 40;
 }
 
 
 
 
-var isShow = true;
-var signals,content,changer,result;
 
-morseShow.onclick = function()
-{
-	if(isShow)
-	{
-		morse.style.display = "inline";
-		isShow = false;
-	}
-	else
-	{
-		morse.style.display = "none";
-		isShow = true;
-	}
-}
+
 function GetMorseObj()
 {
+	/****************************
+	 *	    摩斯密码对象	    *
+	 ****************************/
 	o = {
 		a:".-",
 		b:"-...",
@@ -153,6 +140,7 @@ function GetMorseObj()
 		"8":"---..",
 		"9":"----.",
 		"0":"-----",
+		isShow: true,
 		Parameters:[
 			{
 				EName:"input",
@@ -213,23 +201,9 @@ function GetMorseObj()
 				IsOn:false,
 			},
 		],
-		Elements:{},
-		getElements: function()
-		{
-			o.Parameters.forEach(
-					function(v)
-					{
-						o.ElementCreate(v);
-					}
-				)
-			o.Elements = 
-				{
-					signals: eAll(".signal"),
-					content: e(".content"),
-					result: e(".result"),
-					changer: e(".changer"),
-					radio1: e(".radio1"),
-				}
+		Elements:{
+			morseShow: e(".morseShow"),
+			morse: e(".morse"),
 		},
 		ElementCreate:function(parmenters)
 		{
@@ -258,7 +232,7 @@ function GetMorseObj()
 						p.textContent = "字母转密码:";
 					}
 					p.style.display = "inline";				
-					morse.appendChild(p);
+					o.Elements.morse.appendChild(p);
 					
 					input.name = "radio";
 				}
@@ -273,10 +247,10 @@ function GetMorseObj()
 						}
 					}
 				}
-				morse.appendChild(input);
+				o.Elements.morse.appendChild(input);
 				if (parmenters.ClassName == "radio1" ) 
 					{
-						morse.appendChild(c("br"));
+						o.Elements.morse.appendChild(c("br"));
 					}
 				return input;
 			}
@@ -289,7 +263,7 @@ function GetMorseObj()
 					p.style.display = "inline";
 
 				}
-				morse.appendChild(p);
+				o.Elements.morse.appendChild(p);
 			}
 		},
 		MToE: function(val,signals)
@@ -327,15 +301,15 @@ function GetMorseObj()
 		change: function()
 		{
 			var _result = "";
-			if (!morseObj.Elements.signals[0].value) 
+			if (!o.Elements.signals[0].value) 
 			{
 				_result ="亲~短信号不能为空哟!\n";
 			}
-			if (!morseObj.Elements.signals[1].value)
+			if (!o.Elements.signals[1].value)
 			{
 				_result +="亲~长信号不能为空哟!\n";
 			}
-			if (!morseObj.Elements.content.value)
+			if (!o.Elements.content.value)
 			{
 				_result +="你爸爸东西都没有!\n转个毛!!!";
 			}
@@ -378,17 +352,49 @@ function GetMorseObj()
 			o.Elements.result.value = arr.join(" ");
 
 		},
+		morseShow: function()
+		{
+			if(o.isShow)
+			{
+				o.Elements.morse.style.display = "inline";
+				o.isShow = false;
+			}
+			else
+			{
+				o.Elements.morse.style.display = "none";
+				o.isShow = true;
+			}
+		},
 	}
 	return o;
 }
-window.onload = function()
-{
-	morse.style.display = "none";
-	morseObj = GetMorseObj();
-	morseObj.getElements();
-	morseObj.Elements.changer.onclick = morseObj.change;
-}
 
+window.addEventListener(
+	"load", 
+	function ()
+	{
+		var morseObj = GetMorseObj();
+		morseObj.Elements.morse.style.display = "none";
+		morseObj.Parameters.forEach(
+			function(v)
+			{
+				morseObj.ElementCreate(v);
+			}
+		);
+		Object.assign(
+			morseObj.Elements,
+			{
+				signals: eAll(".signal"),
+				content: e(".content"),
+				result: e(".result"),
+				changer: e(".changer"),
+				radio1: e(".radio1"),
+			}
+		);
+		morseObj.Elements.morseShow.addEventListener("click", morseObj.morseShow);
+		morseObj.Elements.changer.addEventListener("click", morseObj.change);
+	} 
+);
 log(`
                     _ooOoo_
                    o8888888o
