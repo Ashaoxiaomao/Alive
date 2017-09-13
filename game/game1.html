@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game!</title>
+	<style type="text/css">
+		canvas
+		{
+			border: 1px solid black; 
+		}
+	</style>
+</head>
+<body>
+<canvas id="id_canvas" width="414" height="400"></canvas>
+<script >
+//                   _ooOoo_
+//                  o8888888o
+//                  88" . "88
+//                  (| -_- |)
+//                  O\  =  /O
+//               ____/`---'\____
+//             .'  \\|     |//  `.
+//            /  \\|||  :  |||//  \
+//           /  _||||| -:- |||||-  \
+//           |   | \\\  -  /// |   |
+//           | \_|  ''\---/''  |_/ |
+//           \  .-\__  `-`  ___/-. /
+//         ___`. .'  /--.--\  `. . __
+//      ."" '<  `.___\_<|>_/___.'  >'"".
+//     | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+//     \  \ `-.   \_ __\ /__ _/   .-` /  /
+//======`-.____`-.___\_____/___.-`____.-'======
+//                   `=---='
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//         佛祖保佑       永无BUG
+//  本模块已经经过开光处理，绝无可能再产生bug
+//=============================================
+var log = console.log.bind(console)
+ 
+var bool = false
+
+var imageFromPath = function (path) 
+{
+	var img = new Image()
+	img.src = path
+	return img
+}
+
+// 检测是否碰撞
+var IsCollide = function(a, b)
+{
+	var x1 = a.x
+	var y1 = a.y
+	var w1 = a.image.width
+	var h1 = a.image.height
+	var x2 = b.x
+	var y2 = b.y
+	var w2 = b.image.width
+	var h2 = b.image.height
+	if (x1+w1>=x2 && y1+h1>=y2 &&x2+w2>=x1 && y2+h2>=y1) {
+        if(x1+w1==x2){
+            //左右碰
+            return "zy"
+        }
+        if(y1+h1==y2){
+            //上下碰
+            return "sx"
+        }
+    }
+	return false
+}
+
+var Paddle = function() 
+{
+	var _image = imageFromPath("paddle.png")
+	var o = {
+		image: _image,
+		x: 120,
+		y: 348,
+		speed: 2,
+		relative: 55,
+		prop: 
+		{
+			stick: false,
+			IsStick: function()
+			{
+				o.prop.stick = !o.prop.stick
+			},
+		},
+		moveLeft: function ()
+		{
+			if (o.x > 0) 
+			{	
+				o.x -= o.speed
+			}
+		},
+		moveRight: function ()
+		{
+			if (o.x < 414 - o.image.width) 
+			{
+				o.x += o.speed	
+			}
+		},
+		collide: function (boll)
+		{
+			o.relative = boll.x - o.x
+			if (IsCollide(o, boll) || IsCollide(boll, o))
+			{
+				if (o.prop.stick) 
+				{
+					boll.stick()
+				}
+				boll.y = 337
+				return true
+			}
+			return false
+		},
+	}
+	return o
+}
+
+var Block = function(guaGame) 
+{
+	var _image = imageFromPath("block.png")
+	var o = {
+		image: _image,
+		x: 0,
+		y: 0,
+		alive: true,
+		collide: function (boll)
+		{
+			return o.alive && (IsCollide(o, boll) || IsCollide(boll, o))
+		},
+		kill: function()
+		{
+			return o.alive = false
+		},
+	}
+	return o
+}
+
+var Boll = function(guaGame) 
+{
+	var _image = imageFromPath("boll.png")
+	var o = {
+		image: _image,
+		x: 175,
+		y: 338,
+		speedX: 1,
+		speedY: 1,
+		fired: false,
+		rudder: ~~(Math.random(1) * 11 % 2),
+		fire: function() 
+		{
+			if (!o.fired && o.rudder == 0) 
+			{
+				o.speedX *= -1
+			}
+			o.fired = true
+		},
+		move: function (paddle)
+		{
+			if (o.fired) 
+			{
+				if (o.x < 0 || o.x > 414 - o.image.width) 
+				{
+					o.speedX *= -1
+				}
+				if (o.y < 0 || o.y > 414 - o.image.height) 
+				{
+					o.speedY *= -1
+				}
+				o.x -= o.speedX
+				o.y -= o.speedY
+				// log("move")
+			}
+			else 
+			{
+				// log(paddle.x, o.x, o.x - paddle.x)
+				o.x =  paddle.x + paddle.relative
+			}
+		},
+		stick: function()
+		{
+			o.fired = false
+		},
+	}
+	return o
+}
+
+var guaGame = function (images)
+{
+	var canvas = document.querySelector("#id_canvas")
+	var canvastx = canvas.getContext("2d")
+	var g = {
+		canvas: canvas,
+		canvastx: canvastx,
+		actions: {},
+		keydowns: {},
+		images: {},
+		image: function (_image) 
+		{
+			// log(_image)
+			g.canvastx.drawImage(_image.image, _image.x, _image.y)
+		},
+		register: function(key, callback)
+		{
+			g.actions[key] = callback
+		},
+		// nameByImage: function(name)
+		// {
+		// 	return g.images[name]
+		// },
+	}
+
+	window.addEventListener("keydown", function(event) 
+	{	
+		// log(event)
+		g.keydowns[event.key] = true
+	})
+
+	window.addEventListener("keyup", function(event) 
+	{	
+		g.keydowns[event.key] = false
+	})
+
+	// var loads = 0
+	// var names = Object.keys(images)
+	// for (var i = names.length - 1; i >= 0; i--) {
+	// 	var name = names[i]
+	// 	var path = images[name]
+	// 	var _i = new Image()
+	// 	_i.src = path
+	// 	_i.onload = function() 
+	// 	{
+	// 		g.images[name] = _i
+	// 		loads++
+	// 		log(loads,names[i],"loads")
+	// 		// if (names.length == loads) 
+	// 		// {
+	// 		// 	run()
+	// 		// }
+	// 	}
+	// }
+
+	// var run = function(){
+		setInterval(function()
+		{
+			var actionArr = Object.keys(g.actions)
+			actionArr.forEach(function(k){	
+				if (g.keydowns[k]) 
+				{
+					g.actions[k]()
+				}
+			})
+
+			g.update() 
+
+			canvastx.clearRect(0, 0, canvas.width, canvas.height)
+
+			g.draw()
+		}, 1000/240)
+
+	// }
+	return g
+}
+
+var _main = function() 
+{
+	// var images = 
+	// {
+	// 	paddle: "paddle.png",
+	// 	boll: "boll.png",
+	// 	block: "block.png",
+	// }
+
+	var g = guaGame()
+	var paddle = Paddle()
+	var boll = Boll()
+
+	var blocks = []
+	for (var i = 0; i <80; i++) {
+		var b = Block()
+		b.x = i%8 * 52
+		b.y = ~~(i / 8) * 21 
+		blocks.push(b)
+	}
+
+	// 注册按键事件
+	g.register("a", function()
+		{
+			paddle.moveLeft()
+		})
+	g.register("d", function()
+		{
+			paddle.moveRight()
+		})
+	g.register("f", function()
+		{
+			boll.fire()
+		})
+	g.register("s", function()
+		{
+			paddle.prop.IsStick()
+		})
+	// 球的运动控制	
+	g.update = function() 
+	{
+		if (bool) 
+		{
+			paddle.x = boll.x - 40 
+		}
+		boll.move(paddle)
+		var isBoom = paddle.collide(boll)
+		if (isBoom) 
+		{
+			boll.speedY *= -1
+			// boll.stick()
+		}
+		for (var i = blocks.length - 1; i >= 0; i--) 
+		{
+			isBoom = blocks[i].collide(boll)
+			if (isBoom) 
+			{
+				if (isBoom == "sx") 
+				{
+					boll.speedY *= -1
+				}
+				if (isBoom == "zy") 
+				{
+					boll.speedX *= -1
+				}
+				if (!blocks[i].kill())
+				return
+			}
+			// if (blocks[i].collide(boll) == 1) 
+			// {
+			// 	boll.speedX *= -1
+			// 	blocks[i].kill()
+			// }
+		}
+	}
+
+	// 展现
+	g.draw = function() 
+	{
+		// 挡板
+		g.image(paddle)
+		// 球
+		g.image(boll)
+		// 砖块
+		for (var i = blocks.length - 1; i >= 0; i--) 
+		{
+			if (blocks[i].alive) 
+			{
+				g.image(blocks[i])
+			}
+		}
+	}
+	
+}
+
+var g = function()
+{
+	bool = !bool
+}
+
+_main()
+</script>
+</body>
+</html>
