@@ -327,16 +327,16 @@ window.addEventListener(
 	"load", 
 	function ()
 	{
-		var morseObj = GetMorseObj()
-		morseObj.Elements.morse.style.display = "none"
-		morseObj.Parmenters.forEach(
+		var morseObject = GetMorseObj()
+		morseObject.Elements.morse.style.display = "none"
+		morseObject.Parmenters.forEach(
 			function(v)
 			{
-				morseObj.ElementCreate(v)
+				morseObject.ElementCreate(v)
 			}
 		)
 		Object.assign(
-			morseObj.Elements,
+			morseObject.Elements,
 			{
 				content: e(".content"),
 				result: e(".result"),
@@ -344,8 +344,8 @@ window.addEventListener(
 				radio1: e(".radio1"),
 			}
 		)
-		morseObj.Elements.morseShow.addEventListener("click", morseObj.morseShow)
-		morseObj.Elements.changer.addEventListener("click", morseObj.change)
+		morseObject.Elements.morseShow.addEventListener("click", morseObject.morseShow)
+		morseObject.Elements.changer.addEventListener("click", morseObject.change)
 	} 
 )
 log(`

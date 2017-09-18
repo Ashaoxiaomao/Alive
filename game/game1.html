@@ -57,13 +57,13 @@ var IsCollide = function(a, b)
 	var w2 = b.image.width
 	var h2 = b.image.height
 	if (x1+w1>=x2 && y1+h1>=y2 &&x2+w2>=x1 && y2+h2>=y1) {
-        if(x1+w1==x2){
-            //左右碰
-            return "zy"
-        }
         if(y1+h1==y2){
             //上下碰
             return "sx"
+        }
+        if(x1+w1==x2){
+            //左右碰
+            return "zy"
         }
     }
 	return false
